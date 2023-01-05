@@ -1,0 +1,17 @@
+class Solution {
+    public String longestPrefix(String s) {
+        int n = s.length(), fallback = -1;
+        int[] table = new int[n];
+        table[0] = -1;
+        for (int i = 1; i < n; i ++) {
+            while (fallback > -1 && s.charAt(fallback + 1) != s.charAt(i)) {
+                fallback = table[fallback];
+            }
+            if (s.charAt(fallback + 1) == s.charAt(i)) {
+                fallback ++;
+            }
+            table[i] = fallback;
+        }
+        return s.substring(0, fallback + 1);
+    }
+}
